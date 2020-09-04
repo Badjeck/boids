@@ -8,9 +8,38 @@ SCREEN_SIZE = SCREEN_WIDTH, SCREEN_HEIGHT = 1800, 1000
 BLACK = (0, 0, 0)
 
 MAX_VELOCITY = 10
+PREDATOR_MAX_VELOCITY = 11
+
+NUM_PREDATOR = 1
 NUM_BOIDS = 50
 
 BORDER = 25
+
+class Predator(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        super(Predator, self).__init__()
+
+        self.image = pygame.image.load("img/predator.png").convert()
+        self.rect = self.image.get_rect()
+
+        self.rect.x = x
+        self.rect.y = y
+
+        self.velocityX = random.randint(1, 10) / 10.0
+        self.velocityY = random.randint(1, 10) / 10.0
+
+    def distance(self, prey):
+        '''Return the distance from another prey'''
+
+        distX = self.rect.x - prey.rect.x
+        distY = self.rect.y - prey.rect.y
+
+        return math.sqrt(distX * distX + distY * distY)
+
+    
+
+    
+
 
 
 class Prey(pygame.sprite.Sprite):
@@ -138,6 +167,9 @@ screen = pygame.display.set_mode(SCREEN_SIZE)
 prey_list = pygame.sprite.Group()
 
 all_sprites_list = pygame.sprite.Group()
+
+predator = Predator(random.randint(0, SCREEN_WIDTH), random.randint(0, SCREEN_HEIGHT))
+all_sprites_list.add(predator)
 
 for i in range(NUM_BOIDS):
     prey = Prey(random.randint(0, SCREEN_WIDTH), random.randint(0, SCREEN_HEIGHT))
