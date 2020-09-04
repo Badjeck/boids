@@ -35,6 +35,7 @@ class Prey(pygame.sprite.Sprite):
         distY = self.rect.y - prey.rect.y
 
         return math.sqrt(distX * distX + distY * distY)
+        # bite
 
     def move_closer(self, prey_list):
         '''Move closer to a set of prey_list'''
